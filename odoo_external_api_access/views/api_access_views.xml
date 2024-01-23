@@ -1,0 +1,90 @@
+<odoo>
+    <data>
+
+        <!-- API Access Configuration Menu Item -->
+        <menuitem id="menu_api_access_configuration"
+                  name="API Access Configuration"
+                  parent="base.menu_custom"
+                  sequence="10"
+                  action="action_api_access_settings"/>
+
+        <!-- API Access Settings Action -->
+        <record id="action_api_access_settings" model="ir.actions.act_window">
+            <field name="name">API Access Settings</field>
+            <field name="res_model">api.access</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <!-- API Access Settings Form View -->
+        <record id="view_api_access_settings_form" model="ir.ui.view">
+            <field name="name">api.access.settings.form</field>
+            <field name="model">api.access</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="API_DOCUMENTATION_URL"/>
+                            <field name="API_GLOBAL_CONFIG"/>
+                        </group>
+                        <group string="Permissions">
+                            <field name="API_USER_PERMISSIONS"/>
+                        </group>
+                        <group string="Customization">
+                            <field name="API_ENDPOINTS"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- API Access Settings Search View -->
+        <record id="view_api_access_settings_search" model="ir.ui.view">
+            <field name="name">api.access.settings.search</field>
+            <field name="model">api.access</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <filter string="Active" name="active" domain="[('active','=',True)]"/>
+                    <filter string="Inactive" name="inactive" domain="[('active','=',False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- API Access History Tree View -->
+        <record id="view_api_access_history_tree" model="ir.ui.view">
+            <field name="name">api.access.history.tree</field>
+            <field name="model">api.history</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="API_HISTORY"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- API Access Favorites Tree View -->
+        <record id="view_api_access_favorites_tree" model="ir.ui.view">
+            <field name="name">api.access.favorites.tree</field>
+            <field name="model">api.favorites</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="API_FAVORITES"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- API Access Documentation Template -->
+        <template id="api_documentation_template" name="API Documentation Template">
+            <t t-call="web.html_container">
+                <t t-set="head">
+                    <link rel="stylesheet" type="text/css" href="/odoo_external_api_access/static/src/css/api_styles.css"/>
+                    <script type="text/javascript" src="/odoo_external_api_access/static/src/js/api_interactive.js"></script>
+                </t>
+                <div id="api-documentation-container">
+                    <!-- API Documentation Content will be dynamically injected here -->
+                </div>
+            </t>
+        </template>
+
+    </data>
+</odoo>

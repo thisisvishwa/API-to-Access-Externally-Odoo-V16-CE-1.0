@@ -1,0 +1,67 @@
+<templates>
+    <t t-name="odoo_external_api_access.api_documentation_template">
+        <div id="api-documentation-container">
+            <h2>API Documentation</h2>
+            <div class="api-documentation-content">
+                <t t-foreach="API_ENDPOINTS" t-as="endpoint">
+                    <div class="api-endpoint">
+                        <h3><t t-esc="endpoint.name"/></h3>
+                        <p><t t-esc="endpoint.description"/></p>
+                        <div class="api-endpoint-details">
+                            <t t-call="odoo_external_api_access.api_endpoint_template"/>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="odoo_external_api_access.api_endpoint_template">
+        <div class="api-endpoint-parameters">
+            <h4>Parameters</h4>
+            <ul>
+                <t t-foreach="endpoint.parameters" t-as="param">
+                    <li>
+                        <strong><t t-esc="param.name"/>:</strong>
+                        <span><t t-esc="param.type"/> - <t t-esc="param.description"/></span>
+                    </li>
+                </t>
+            </ul>
+        </div>
+        <div class="api-endpoint-execution">
+            <button type="button" class="execute-api-btn">Execute</button>
+        </div>
+    </t>
+
+    <t t-name="odoo_external_api_access.api_history_template">
+        <div id="api-history-list">
+            <h2>API History</h2>
+            <ul>
+                <t t-foreach="API_HISTORY" t-as="history_item">
+                    <li>
+                        <t t-esc="history_item.endpoint"/> - <t t-esc="history_item.status"/>
+                    </li>
+                </t>
+            </ul>
+        </div>
+    </t>
+
+    <t t-name="odoo_external_api_access.api_favorites_template">
+        <div id="api-favorites-list">
+            <h2>Favorites</h2>
+            <ul>
+                <t t-foreach="API_FAVORITES" t-as="favorite">
+                    <li>
+                        <t t-esc="favorite.name"/>
+                    </li>
+                </t>
+            </ul>
+        </div>
+    </t>
+
+    <t t-name="odoo_external_api_access.api_error_template">
+        <div id="api-error-message" class="api-error">
+            <t t-esc="API_ERROR_MESSAGE"/>
+        </div>
+    </t>
+</templates>
