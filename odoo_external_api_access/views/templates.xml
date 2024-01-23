@@ -1,0 +1,88 @@
+<odoo>
+    <data>
+
+        <!-- API Documentation Template -->
+        <template id="api_documentation_template">
+            <div id="api-documentation-container" class="api-documentation">
+                <h1>API Documentation</h1>
+                <div class="api-endpoints">
+                    <t t-foreach="API_ENDPOINTS" t-as="endpoint">
+                        <div class="api-endpoint">
+                            <h2><t t-esc="endpoint.name"/></h2>
+                            <p><t t-esc="endpoint.description"/></p>
+                            <div class="api-parameters">
+                                <h3>Parameters:</h3>
+                                <t t-foreach="endpoint.parameters" t-as="param">
+                                    <div class="api-parameter">
+                                        <span><t t-esc="param.name"/> (<t t-esc="param.type"/>)</span>
+                                        <span t-if="param.required">[Required]</span>
+                                        <span t-else="">[Optional]</span>
+                                        <p><t t-esc="param.description"/></p>
+                                    </div>
+                                </t>
+                            </div>
+                            <div class="api-responses">
+                                <h3>Responses:</h3>
+                                <t t-foreach="endpoint.responses" t-as="response">
+                                    <div class="api-response">
+                                        <span>Status: <t t-esc="response.status"/></span>
+                                        <pre><code><t t-esc="response.body"/></code></pre>
+                                    </div>
+                                </t>
+                            </div>
+                            <button type="button" class="execute-api-btn" t-att-data-endpoint-id="endpoint.id">Execute</button>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </template>
+
+        <!-- API Execution Environment Template -->
+        <template id="api_execution_environment_template">
+            <div id="api-execution-environment" class="api-execution">
+                <h1>API Execution Environment</h1>
+                <div class="api-request">
+                    <h2>Request</h2>
+                    <textarea id="api-request-parameters" placeholder="Enter request parameters as JSON"></textarea>
+                    <button type="button" class="simulate-api-btn">Simulate Request</button>
+                </div>
+                <div class="api-response">
+                    <h2>Response</h2>
+                    <pre id="api-response-structure"><code></code></pre>
+                </div>
+            </div>
+        </template>
+
+        <!-- API History Template -->
+        <template id="api_history_template">
+            <div id="api-history-list" class="api-history">
+                <h1>API History</h1>
+                <ul>
+                    <t t-foreach="API_HISTORY" t-as="history_item">
+                        <li>
+                            <span><t t-esc="history_item.endpoint"/></span>
+                            <span><t t-esc="history_item.status"/></span>
+                            <span><t t-esc="history_item.date"/></span>
+                        </li>
+                    </t>
+                </ul>
+            </div>
+        </template>
+
+        <!-- API Favorites Template -->
+        <template id="api_favorites_template">
+            <div id="api-favorites-list" class="api-favorites">
+                <h1>Favorites</h1>
+                <ul>
+                    <t t-foreach="API_FAVORITES" t-as="favorite">
+                        <li>
+                            <span><t t-esc="favorite.name"/></span>
+                            <button type="button" class="remove-favorite-btn" t-att-data-favorite-id="favorite.id">Remove</button>
+                        </li>
+                    </t>
+                </ul>
+            </div>
+        </template>
+
+    </data>
+</odoo>
